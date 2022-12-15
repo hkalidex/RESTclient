@@ -1,0 +1,22 @@
+---
+pipeline:
+    buildv3:
+        image: python:3.6.5-stretch
+        commands:
+            - chmod +x build.sh
+            - ./build.sh
+            - rm -rf venv
+    buildv2:
+        image: python:2.7
+        commands:
+            - chmod +x build.sh
+            - ./build.sh
+            - rm -rf venv
+    notify:
+        image: drillster/drone-email
+        from: HostingSDI@intel.com
+        host: smtp.intel.com
+        port: 25
+        recipients:
+            - hostingsdi_developers@intel.com
+        skip_verify: true
